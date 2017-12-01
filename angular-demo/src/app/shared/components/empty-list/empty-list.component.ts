@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
 export class EmptyListComponent {
 
   @Input() public entity: string;
-
+  @Input() public isInline = false;
 }

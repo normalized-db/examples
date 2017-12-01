@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { post1, post2, post3 } from '../../../../assets/data/data';
 import { StatusModalComponent } from '../../../status/status-modal/status-modal.component';
 import { DataStoreService } from '../../service/data-store.service';
+import { UtilitiesService } from '../../service/utilities.service';
 import { ToolbarButton } from '../shared/model/toolbar-button';
 
 @Component({
@@ -42,11 +43,12 @@ export class ToolbarComponent {
 
   constructor(private router: Router,
               private dialog: MdDialog,
-              private dataStore: DataStoreService) {
+              private dataStore: DataStoreService,
+              private utility: UtilitiesService) {
   }
 
   public showStatus() {
-    this.dialog.open(StatusModalComponent);
+    this.dialog.open(StatusModalComponent, { width: '300px' });
   }
 
   public async showUsers() {
@@ -54,13 +56,20 @@ export class ToolbarComponent {
   }
 
   public async bulkAdd() {
-    console.log('#toolbar: bulk add');
-    await this.dataStore.put('article', [post1, post2, post3]);
+    if (await this.dataStore.put('article', [post1, post2, post3])) {
+      this.utility.showSnackBar('Saved demo data');
+      console.log('#toolbar: demo data added');
+    } else {
+      this.utility.showSnackBar('Could not save demo data');
+    }
   }
 
   public async clear() {
     if (await this.dataStore.clear()) {
+      this.utility.showSnackBar('Cleared data');
       console.log('#toolbar: cleared all');
+    } else {
+      this.utility.showSnackBar('Could not clear data');
     }
   }
 }

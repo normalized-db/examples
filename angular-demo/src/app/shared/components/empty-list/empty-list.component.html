@@ -1,4 +1,7 @@
-<mat-card>
-  <mat-card-title>No items</mat-card-title>
-  <mat-card-content>Could not find any {{entity || 'items'}}</mat-card-content>
-</mat-card>
+<span *ngIf="isInline; else card">Could not find any {{entity || 'items'}}</span>
+<ng-template #card>
+  <mat-card>
+    <mat-card-title>No items</mat-card-title>
+    <mat-card-content>Could not find any {{entity || 'items'}}</mat-card-content>
+  </mat-card>
+</ng-template>

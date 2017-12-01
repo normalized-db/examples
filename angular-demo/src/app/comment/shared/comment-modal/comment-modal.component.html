@@ -12,12 +12,13 @@
                 minLength="1"
                 maxLength="500"
                 [(ngModel)]="comment"></textarea>
-      <mat-hint *ngIf="hint && txtComment.errors && (txtComment.dirty || txtComment.touched)">
+      <mat-hint *ngIf="txtComment.errors && (txtComment.dirty || txtComment.touched)">
         Please write a comment
       </mat-hint>
       <mat-hint align="end">{{comment ? comment.length : 0}} / 500</mat-hint>
     </mat-input-container>
-    <mat-select #selectUser
+    <mat-select *ngIf="users && users.hasItems"
+                #selectUser
                 name="selectUser"
                 required
                 placeholder="User"

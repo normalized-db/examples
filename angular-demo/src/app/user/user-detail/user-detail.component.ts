@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { RefsUtility } from '@normalized-db/core';
 import { ListResult } from '@normalized-db/data-store';
 import { Subscription } from 'rxjs/Subscription';
@@ -41,36 +41,34 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.routerSubscription.unsubscribe();
   }
 
-  private reload() {
+  private async reload() {
     if (!this.activatedRoute) {
       return;
     }
 
-    this.activatedRoute.params.forEach(async (params: Params) => {
-      this.userName = params['userName'];
-      console.log('#user-detail: show user', this.userName);
+    const params = this.activatedRoute.snapshot.params;
+    this.userName = params['userName'];
+    console.log('#user-detail: show user', this.userName);
 
-      if (!this.userName) {
-        this.user = null;
-        return;
-      }
+    if (!this.userName) {
+      this.user = null;
+      return;
+    }
 
-      this.user = await this.dataStore.findByKey<User>('user', this.userName).result();
-      if (this.user) {
-        this.articles = await this.dataStore.find<Article>('article')
-          .keys(RefsUtility.getAll(this.user, 'article'))
-          .result();
+    this.user = await this.dataStore.findByKey<User>('user', this.userName).orDefault();
+    if (this.user) {
+      this.articles = await this.dataStore.find<Article>('article')
+        .keys(RefsUtility.getAll(this.user, 'article'))
+        .result();
 
-        this.comments = await this.dataStore.find<Article>('comment')
-          .keys(RefsUtility.getAll(this.user, 'comment'))
-          .result();
-
-      } else {
-        this.articles = null;
-        this.comments = null;
-      }
-
+      this.comments = await this.dataStore.find<Article>('comment')
+        .keys(RefsUtility.getAll(this.user, 'comment'))
+        .result();
       console.log('#user-detail: received', this.user, this.articles, this.comments);
-    });
+    } else {
+      this.articles = null;
+      this.comments = null;
+      console.warn(`Could not load user "${this.userName}"`);
+    }
   }
 }

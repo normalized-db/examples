@@ -29,10 +29,11 @@ export class CommentListComponent {
   }
 
   public async onDelete(comment: Comment, index: number) {
-    const removed = await this.dataStore.remove('article', this.articleId);
-    if (removed) {
+    if (await this.dataStore.remove('comment', comment.id)) {
       this.comments.removeAt(index);
       this.utilities.showSnackBar('Successfully removed comment #' + comment.id);
+    } else {
+      this.utilities.showSnackBar('Could not remove comment');
     }
   }
 }

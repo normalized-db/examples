@@ -30,5 +30,15 @@
 </mat-card>
 
 <ng-template #empty>
-  <app-empty-list [entity]="'comments'"></app-empty-list>
+  <mat-card>
+    <mat-card-title>Comments</mat-card-title>
+    <mat-card-content>
+      <app-empty-list isInline="true" [entity]="'comments'"></app-empty-list>
+    </mat-card-content>
+    <mat-card-actions *ngIf="articleId">
+      <button mat-button (click)="writeComment()">
+        Write a comment <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </ng-template>

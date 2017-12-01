@@ -1,14 +1,8 @@
 <mat-toolbar color="primary">
-
-  <a class="app-title"
-     [routerLink]="'/'"
-     matTooltip="Home">
-    normalized-db
-  </a>
+  <a class="app-title" matTooltip="Home" [routerLink]="'/'">normalized-db</a>
 
   <span class="spacer"></span>
 
   <app-toolbar-filters></app-toolbar-filters>
   <app-toolbar-buttons [staticButtons]="buttons"></app-toolbar-buttons>
-
 </mat-toolbar>
