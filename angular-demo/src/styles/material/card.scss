@@ -1,0 +1,24 @@
+@import "../variables";
+
+.mat-card {
+  margin: $app-gap-large 0;
+
+  .mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    background-color: $app-grey-light;
+    padding-bottom: $app-gap-normal !important;;
+    padding-left: $app-gap-normal;
+    padding-right: $app-gap-normal;
+    margin: 20px -24px -24px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .mat-card {
+    .mat-card-actions {
+      margin-left: -16px !important;
+      margin-right: -16px !important;
+    }
+  }
+}

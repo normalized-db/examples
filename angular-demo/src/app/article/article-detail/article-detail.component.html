@@ -1,0 +1,28 @@
+<ng-container *ngIf="article; else empty">
+  <mat-card>
+    <mat-card-title>#{{article.id}} {{article.title}}</mat-card-title>
+    <mat-card-subtitle>
+      <app-user-link [user]="article.author"></app-user-link>
+    </mat-card-subtitle>
+    <img matCardImage *ngIf="imageUri"
+         [src]="imageUri"
+         [alt]="article.image.name">
+    <mat-card-content>{{article.text}}</mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="uploadImage()">
+        Image
+        <mat-icon>image</mat-icon>
+      </button>
+      <button mat-button (click)="remove()">
+        Remove
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <app-comment-list [articleId]="article.id"
+                    [comments]="article.comments"></app-comment-list>
+</ng-container>
+
+<ng-template #empty>
+  <app-empty [entity]="'article'"></app-empty>
+</ng-template>

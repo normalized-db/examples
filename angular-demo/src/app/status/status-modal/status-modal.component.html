@@ -1,0 +1,17 @@
+<h2 matDialogTitle>Status</h2>
+<mat-dialog-content>
+  <mat-list *ngIf="stores && stores.length > 0; else empty">
+    <mat-list-item *ngFor="let store of stores">
+      <!--TODO-->
+      <!--<mat-icon mat-list-icon-->
+                <!--matTooltip="{{store.type}}-history"-->
+                <!--(click)="showHistory(store)">history</mat-icon>-->
+      <div mat-line><strong>{{store.type}}</strong>: {{store.length}} item(s)</div>
+      <div mat-line>{{store.keys|json}}</div>
+    </mat-list-item>
+  </mat-list>
+
+  <ng-template #empty>
+    <app-empty-list [entity]="'stores'"></app-empty-list>
+  </ng-template>
+</mat-dialog-content>

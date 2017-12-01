@@ -1,0 +1,26 @@
+@import "../../../../styles/variables";
+
+.image-upload {
+
+  .mat-dialog-content {
+    .preview {
+      max-width: 500px;
+    }
+
+    .no-image {
+      padding: $app-gap-xxl;
+      font-family: Roboto, sans-serif;
+      border: 1px dashed lighten($app-grey-dark, 50%);
+      background-color: lighten($app-grey-light, 2.5%);
+
+      &:hover {
+        border-color: lighten($app-grey-dark, 25%);
+        background-color: $app-grey-light;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

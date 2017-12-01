@@ -1,0 +1,21 @@
+<div *ngIf="buttons && buttons.length > 0" class="toolbar-button-container">
+  <div *ngFor="let button of buttons" class="toolbar-button-wrapper">
+
+    <button *ngIf="button.icon; else buttonText" mat-icon-button class="toolbar-button"
+            [id]="button.id"
+            (click)="button.onClick(button)"
+            [matTooltip]="button.label">
+      <mat-icon>{{button.icon}}</mat-icon>
+    </button>
+
+    <ng-template #buttonText>
+      <button mat-button class="toolbar-button"
+              [id]="button.id"
+              (click)="button.onClick(button)"
+              [matTooltip]="button.label">
+        <span>{{button.label}}</span>
+      </button>
+    </ng-template>
+
+  </div>
+</div>

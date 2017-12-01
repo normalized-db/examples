@@ -1,0 +1,18 @@
+@import "../variables";
+
+.mat-toolbar {
+  position: fixed;
+  z-index: 2;
+
+  .mat-select,
+  .mat-select:focus {
+    .mat-select-trigger,
+    .mat-select-arrow,
+    .mat-select-value,
+    .mat-select-underline,
+    &:not(.mat-select-disabled).mat-primary .mat-select-trigger,
+    &:not(.mat-select-disabled).mat-primary .mat-select-arrow {
+      color: $app-grey-light;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+@import "../../../../styles/variables";
+
+.comment {
+  border-bottom: 1px solid $app-grey-light;
+
+  .mat-icon {
+    margin-left: -$app-gap-small;
+    color: lighten($app-grey-dark, 15%);
+  }
+
+  .mat-line {
+    &:first-child {
+      margin-bottom: $app-gap-small;
+    }
+  }
+
+  .action {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}

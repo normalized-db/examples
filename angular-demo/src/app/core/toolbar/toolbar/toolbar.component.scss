@@ -1,0 +1,18 @@
+@import "../../../../styles/variables";
+
+.mat-toolbar {
+  .mat-toolbar-row,
+  /deep/ .mat-toolbar-row div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  a {
+    color: $app-grey-light;
+  }
+
+  .app-title {
+    margin-right: $app-gap-normal;
+  }
+}

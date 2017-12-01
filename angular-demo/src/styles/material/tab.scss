@@ -1,0 +1,24 @@
+@import "../variables";
+
+.mat-tab-group {
+  .mat-tab-header {
+    border-bottom-color: transparentize($app-grey-light, 0.8);
+
+    .mat-tab-label {
+      color: $app-grey-light;
+
+      &:focus {
+        background-color: transparentize($app-grey-light, 0.75);
+      }
+
+      &.mat-tab-label-active {
+        color: white;
+        background-color: transparentize($app-grey-light, 0.5);
+      }
+    }
+
+    .mat-ink-bar {
+      background-color: transparentize($app-grey-light, 0.25);
+    }
+  }
+}

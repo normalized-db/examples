@@ -1,0 +1,14 @@
+<div *ngIf="filters && filters.length > 0" class="toolbar-filter-container">
+  <mat-select *ngFor="let filter of filters | toolbarFilter" class="toolbar-filter"
+              [id]="filter.id"
+              [placeholder]="filter.label"
+              [multiple]="filter.multiple"
+              [matTooltip]="filter.label"
+              [(ngModel)]="filter.value"
+              (change)="filter.onChanged(filter)"
+              floatPlaceholder="never">
+    <mat-option *ngFor="let option of filter.options" [value]="option.value">
+      {{option.label}}
+    </mat-option>
+  </mat-select>
+</div>

@@ -1,0 +1,23 @@
+<ng-container *ngIf="articles && articles.hasItems; else empty">
+  <mat-card *ngFor="let article of articles.items" class="article">
+    <mat-card-title>#{{article.id}} {{article.title}}</mat-card-title>
+    <mat-card-subtitle>
+      <app-user-link [user]="article.author"></app-user-link>,
+      {{article.createdDate|date}} |
+      <span *ngIf="article.comments; else noComments">{{article.comments.length}} comment(s)</span>
+      <ng-template #noComments>
+        <span>No comments</span>
+      </ng-template>
+    </mat-card-subtitle>
+    <mat-card-content>{{article.text}}</mat-card-content>
+    <mat-card-actions>
+      <button mat-button [routerLink]="['/article', article.id]">
+        Show <mat-icon>zoom_in</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>
+
+<ng-template #empty>
+  <app-empty-list [entity]="'articles'"></app-empty-list>
+</ng-template>
