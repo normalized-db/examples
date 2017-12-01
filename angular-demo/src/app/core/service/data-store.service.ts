@@ -71,10 +71,10 @@ export class DataStoreService implements IDataStore<Types> {
     return new IdbContext(
       this.schema,
       new NormalizerBuilder()
-        .withSchema(this.schema)
-        .withReverseReferences(true)
-        .withUniqueKeyCallback(DataStoreService.newKey),
-      new DenormalizerBuilder().withSchema(this.schema),
+        .schema(this.schema)
+        .reverseReferences(true)
+        .uniqueKeyCallback(DataStoreService.newKey),
+      new DenormalizerBuilder().schema(this.schema),
       { name: 'ndb-demo', version: 1 }
     );
   }
