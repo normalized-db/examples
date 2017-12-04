@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataStoreService, Types } from '../../core/service/data-store.service';
+import { DataStoreService, Types } from '../../../core/service/data-store.service';
 
 class Store {
   type: string;

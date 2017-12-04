@@ -4,5 +4,5 @@ export class DateEntity {
 }
 
 export class IdEntity extends DateEntity {
-  id?: number;
+  id?: string;
 }

@@ -9,7 +9,7 @@ import { CoreModule } from './core/core.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    CoreModule
+    CoreModule.forRoot()
   ],
   bootstrap: [AppRootComponent]
 })

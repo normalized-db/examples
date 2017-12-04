@@ -3,7 +3,7 @@ import { ISchemaConfig } from '@normalized-db/core';
 export const schemaConfig: ISchemaConfig = {
   _defaults: {
     key: 'id',
-    autoKey: true,
+    autoKey: false,
     lastModified: 'lastModified'
   },
   _authored: {

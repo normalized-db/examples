@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MdDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { post1, post2, post3 } from '../../../../assets/data/data';
-import { StatusModalComponent } from '../../../status/status-modal/status-modal.component';
+import { StatusModalComponent } from '../../../shared/components/status-modal/status-modal.component';
 import { DataStoreService } from '../../service/data-store.service';
 import { UtilitiesService } from '../../service/utilities.service';
 import { ToolbarButton } from '../shared/model/toolbar-button';

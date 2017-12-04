@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ListResult } from '@normalized-db/data-store';
+import { ListResult } from '../../../../../../../normalized-db-data-store/lib/index';
 import { Article } from '../../../core/entity/article';
 
 @Component({

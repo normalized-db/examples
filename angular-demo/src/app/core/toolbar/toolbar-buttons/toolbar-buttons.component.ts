@@ -16,10 +16,7 @@ export class ToolbarButtonsComponent implements OnInit {
   constructor(private toolbarService: ToolbarService) {
   }
 
-  ngOnInit() {
-    this.toolbarService.buttons.subscribeAndTrigger(
-      actions => this.buttons = [...this.staticButtons, ...actions.value]
-    );
+  public ngOnInit() {
+    this.toolbarService.buttons.subscribe(actions => this.buttons = [...this.staticButtons, ...actions]);
   }
-
 }

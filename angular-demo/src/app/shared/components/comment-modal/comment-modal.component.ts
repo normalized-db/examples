@@ -16,7 +16,6 @@ export class CommentModalComponent implements OnInit {
   public static writeComment(dialog: MdDialog, articleId: number): Promise<Comment> {
     const dialogRef = dialog.open(CommentModalComponent);
     dialogRef.componentInstance.articleId = articleId;
-
     return dialogRef.afterClosed().toPromise();
   }
 

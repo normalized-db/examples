@@ -1,6 +1,6 @@
-import { ObservedProperty } from './observed-property';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-export class ObservedArray<T> extends ObservedProperty<T[]> {
+export class BehaviorArraySubject<T> extends BehaviorSubject<T[]> {
 
   constructor(defaultValue: T[] = []) {
     super(defaultValue);
@@ -8,7 +8,7 @@ export class ObservedArray<T> extends ObservedProperty<T[]> {
 
   public push(...item: T[]) {
     this.value.push(...item);
-    this.next();
+    this.next(this.value);
   }
 
   public remove(...items: T[]) {
@@ -16,9 +16,12 @@ export class ObservedArray<T> extends ObservedProperty<T[]> {
       const index = this.value.findIndex(otherItem => otherItem === item);
       if (index >= 0) {
         this.value.splice(index, 1);
-        this.next();
+        this.next(this.value);
       }
     });
   }
 
+  public clear() {
+    this.next([]);
+  }
 }

@@ -14,7 +14,7 @@ import { DenormalizerBuilder } from '@normalized-db/denormalizer';
 import { NormalizerBuilder } from '@normalized-db/normalizer';
 import { schemaConfig } from '../../../assets/data/schema';
 
-export declare type Types = 'role' | 'user' | 'comment' | 'article';
+export type Types = 'role' | 'user' | 'comment' | 'article';
 
 @Injectable()
 export class DataStoreService implements IDataStore<Types> {

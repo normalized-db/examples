@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MdDialog } from '@angular/material';
-import { ListResult } from '@normalized-db/data-store';
+import { ListResult } from '../../../../../../../normalized-db-data-store/lib/index';
 import { Comment } from '../../../core/entity/comment';
 import { DataStoreService } from '../../../core/service/data-store.service';
 import { UtilitiesService } from '../../../core/service/utilities.service';

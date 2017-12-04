@@ -16,10 +16,7 @@ export class ToolbarFiltersComponent implements OnInit {
   constructor(private toolbarService: ToolbarService) {
   }
 
-  ngOnInit() {
-    this.toolbarService.filters.subscribeAndTrigger(
-      filters => this.filters = [...this.staticFilters, ...filters.value]
-    );
+  public ngOnInit() {
+    this.toolbarService.filters.subscribe(filters => this.filters = [...this.staticFilters, ...filters]);
   }
-
 }

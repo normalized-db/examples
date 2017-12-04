@@ -78,7 +78,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     }
 
     const params = this.activatedRoute.snapshot.params;
-    this.articleId = +params['articleId'];
+    this.articleId = params['articleId'];
     console.log('#article-detail: show article', this.articleId);
 
     if (!this.articleId) {
