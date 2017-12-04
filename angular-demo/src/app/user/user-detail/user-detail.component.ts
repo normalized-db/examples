@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { RefsUtility } from '@normalized-db/core';
 import { ListResult } from '@normalized-db/data-store';
 import { Subscription } from 'rxjs/Subscription';
 import { Article } from '../../core/entity/article';
@@ -57,13 +56,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     this.user = await this.dataStore.findByKey<User>('user', this.userName).orDefault();
     if (this.user) {
-      this.articles = await this.dataStore.find<Article>('article')
-        .keys(RefsUtility.getAll(this.user, 'article'))
-        .result();
-
-      this.comments = await this.dataStore.find<Article>('comment')
-        .keys(RefsUtility.getAll(this.user, 'comment'))
-        .result();
+      [this.articles, this.comments] = await Promise.all([
+        this.dataStore.find<Article>('article').reverse(this.user).result(),
+        this.dataStore.find<Article>('comment').reverse(this.user).result()
+      ]);
       console.log('#user-detail: received', this.user, this.articles, this.comments);
     } else {
       this.articles = null;
