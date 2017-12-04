@@ -1,32 +1,22 @@
-# normalized-db
-
-**Demo-app with Angular 4**
+# Angular4-Demo
 
 ---
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.0.
+Demo app with Angular4 and IndexedDB.
 
-## Development server
+ - **Author**: Sandro Schmid ([saseb.schmid@gmail.com](<mailto:saseb.schmid@gmail.com>))
+ - **Version**: 2.0.3
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+**Note**: The normalized-db-project is under active development.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+---
 
-## Build
+This demo uses the default `IdbContext`. Especially note 
+[data-store.service.ts](https://github.com/normalized-db/examples/blob/master/angular-demo/src/app/core/service/data-store.service.ts) 
+in `app/core/service` (used as interface between the app and the normalized-db-libraries) 
+and [schema.ts](https://github.com/normalized-db/examples/blob/master/angular-demo/src/assets/data/schema.ts)
+in `app/assets/data` (describing the data-model used for normalization).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+For instructions on how to run the app after installing the dependencies (`npm install`), please refer to the [Angular-CLI docs](https://cli.angular.io/).
