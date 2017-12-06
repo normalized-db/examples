@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ListResult } from '@normalized-db/data-store';
+import { ListResult, MapFunc, Query, ReducerFunc } from '@normalized-db/data-store';
 import { Article } from '../../core/entity/article';
 import { DataStoreService } from '../../core/service/data-store.service';
 import { ToolbarService } from '../../core/service/toolbar.service';
@@ -37,10 +37,15 @@ export class ArticleIndexComponent implements OnInit, OnDestroy {
   }
 
   public async reload() {
-    this.articles = await this.dataStore.find<Article>('article').result();
+    const articlesQuery = this.dataStore.find<Article>('article');
+    this.articles = await articlesQuery.result();
     this.reloadFilter();
 
     console.log('#article-list: ', this.articles);
+
+    this.testMap(articlesQuery);
+    this.testReduce(articlesQuery);
+    this.testMapReduce(articlesQuery);
   }
 
   public async remove(article: Article) {
@@ -75,5 +80,41 @@ export class ArticleIndexComponent implements OnInit, OnDestroy {
         .keys(filter.value)
         .result();
     }
+  }
+
+  private async testMap(articlesQuery: Query<Article>) {
+    const mapResult = await articlesQuery.map(async article => this.randomDelay(article.comments)).result();
+    console.log('map', mapResult);
+  }
+
+  private async testReduce(articlesQuery: Query<Article>) {
+    const reduceResult = await articlesQuery.reduce(async (accumulated, article) => {
+      accumulated.push(...article.comments);
+      return this.randomDelay(accumulated);
+    }, []).result();
+    console.log('reduce', reduceResult);
+  }
+
+  private async testMapReduce(articlesQuery: Query<Article>) {
+    const mapFunc: MapFunc<Article, string[]> = article => {
+      const authors = [article.author.userName];
+      if (article.comments) {
+        authors.push(...article.comments.map(c => c.author.userName));
+      }
+      return authors;
+    };
+
+    const reducerFunc: ReducerFunc<string[], Set<string>> = (accumulated, authors) => {
+      authors.forEach(author => accumulated.add(author));
+      return accumulated;
+    };
+
+    const mapReduceResult = await articlesQuery.map(mapFunc).reduce(reducerFunc, new Set<string>()).result();
+    console.log('map-reduce', mapReduceResult);
+  }
+
+  private async randomDelay<Result>(result: Result): Promise<Result> {
+    return new Promise<Result>(resolve =>
+      setTimeout(() => resolve(result), Math.floor(Math.random() * 1000)));
   }
 }
