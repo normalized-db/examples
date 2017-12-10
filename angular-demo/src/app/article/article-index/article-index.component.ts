@@ -1,7 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ListResult, MapFunc, Query, ReducerFunc } from '@normalized-db/data-store';
+import {
+  BaseEvent,
+  CreatedEvent,
+  ListResult,
+  MapFunc,
+  OnDataChanged,
+  Query,
+  ReducerFunc,
+  RemovedEvent
+} from '@normalized-db/data-store';
 import { Article } from '../../core/entity/article';
-import { DataStoreService } from '../../core/service/data-store.service';
+import { DataStoreService, Types } from '../../core/service/data-store.service';
 import { ToolbarService } from '../../core/service/toolbar.service';
 import { ToolbarFilter } from '../../core/toolbar/shared/model/toolbar-filter';
 
@@ -10,7 +19,7 @@ import { ToolbarFilter } from '../../core/toolbar/shared/model/toolbar-filter';
   templateUrl: './article-index.component.html',
   styleUrls: ['./article-index.component.scss']
 })
-export class ArticleIndexComponent implements OnInit, OnDestroy {
+export class ArticleIndexComponent implements OnInit, OnDestroy, OnDataChanged {
 
   public articles: ListResult<Article>;
 
@@ -30,10 +39,30 @@ export class ArticleIndexComponent implements OnInit, OnDestroy {
   public async ngOnInit() {
     this.toolbar.filters.push(this.filter);
     await this.reload();
+    this.dataStore.eventPipe.add(this).type('article').register();
   }
 
   public ngOnDestroy() {
     this.toolbar.filters.remove(this.filter);
+    this.dataStore.eventPipe.remove(this);
+  }
+
+  public ndbOnDataChanged(event: BaseEvent<Types, Article>) {
+    console.log('data changed', event);
+    if (event.dataStoreType === 'article') {
+      let changed = false;
+      if (event instanceof CreatedEvent) {
+        this.articles.push(event.item);
+        changed = true;
+      } else if (event instanceof RemovedEvent) {
+        this.articles.remove(event.item);
+        changed = true;
+      }
+
+      if (changed) {
+        this.reloadFilter();
+      }
+    }
   }
 
   public async reload() {
