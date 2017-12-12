@@ -1,7 +1,5 @@
 # Angular4-Demo
 
----
-
 Demo app with Angular4 and IndexedDB.
 
  - **Author**: Sandro Schmid ([saseb.schmid@gmail.com](<mailto:saseb.schmid@gmail.com>))
