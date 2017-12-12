@@ -36,14 +36,14 @@ import { MaterialModule } from './material/material.module';
     MaterialModule,
     EmptyListComponent,
     EmptyComponent,
-    StatusModalComponent,
     ArticleListComponent,
     CommentListComponent,
     UserLinkComponent
   ],
   entryComponents: [
     ImageUploadComponent,
-    CommentModalComponent
+    CommentModalComponent,
+    StatusModalComponent
   ]
 })
 export class SharedModule {
