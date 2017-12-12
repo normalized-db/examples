@@ -1,6 +1,6 @@
 import { browser, by, element } from 'protractor';
 
-export class BisswissMaintenanceToolFrontendPage {
+export class NormalizedDbAngularDemoPage {
   navigateTo() {
     return browser.get('/');
   }

@@ -1,10 +1,10 @@
-import { BisswissMaintenanceToolFrontendPage } from './app.po';
+import { NormalizedDbAngularDemoPage } from './app.po';
 
-describe('bisswiss-maintenance-tool-frontend App', () => {
-  let page: BisswissMaintenanceToolFrontendPage;
+describe('normalized-db App', () => {
+  let page: NormalizedDbAngularDemoPage;
 
   beforeEach(() => {
-    page = new BisswissMaintenanceToolFrontendPage();
+    page = new NormalizedDbAngularDemoPage();
   });
 
   it('should display welcome message', () => {
