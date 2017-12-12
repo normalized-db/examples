@@ -2,7 +2,7 @@
   <mat-card *ngFor="let article of articles.items" class="article">
     <mat-card-title>#{{article.id}} {{article.title}}</mat-card-title>
     <mat-card-subtitle>
-      <app-user-link [user]="article.author"></app-user-link>,
+      <app-user-link [user]="article.author"></app-user-link>
       {{article.createdDate|date}} |
       <span *ngIf="article.comments; else noComments">{{article.comments.length}} comment(s)</span>
       <ng-template #noComments>

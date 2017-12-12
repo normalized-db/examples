@@ -4,14 +4,14 @@ import {
   Context,
   CountQuery,
   DataStore,
+  EventPipe,
   IDataStore,
   IdbContext,
+  Logger,
   Parent,
   Query,
   SingleItemQuery
 } from '@normalized-db/data-store';
-import { EventPipe } from '@normalized-db/data-store/lib/src/event/utility/event-pipe';
-import { LogQuery } from '@normalized-db/data-store/lib/src/logging/query/log-query';
 import { DenormalizerBuilder } from '@normalized-db/denormalizer';
 import { NormalizerBuilder } from '@normalized-db/normalizer';
 import { schemaConfig } from '../../../assets/data/schema';
@@ -74,12 +74,12 @@ export class DataStoreService implements IDataStore<Types> {
     return this._dataStore.remove<Item>(type, item);
   }
 
-  public clear(type?: string | string[]): Promise<boolean> {
-    return this._dataStore.clear(type);
+  public clear(type?: string | string[], includeLogs?: boolean): Promise<boolean> {
+    return this._dataStore.clear(type, includeLogs);
   }
 
-  public logs(): LogQuery<Types> {
-    return this._context.logger().logs();
+  public logger(): Logger<Types, Context<Types>> {
+    return this._context.logger();
   }
 
   private buildContext(): Context<Types> {

@@ -66,6 +66,7 @@ export class ToolbarComponent {
 
   public async clear() {
     if (await this.dataStore.clear()) {
+      this.router.navigate(['/']);
       this.utility.showSnackBar('Cleared data');
       console.log('#toolbar: cleared all');
     } else {
