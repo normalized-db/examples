@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ListResult } from '../../../../../../../normalized-db-data-store/lib/index';
+import { ListResult } from '@normalized-db/data-store';
 import { Article } from '../../../core/entity/article';
 
 @Component({
@@ -10,5 +10,4 @@ import { Article } from '../../../core/entity/article';
 export class ArticleListComponent {
 
   @Input() public articles: ListResult<Article>;
-
 }
