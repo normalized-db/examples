@@ -1,15 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ISchema, Schema, ValidKey } from '@normalized-db/core';
 import {
-  Context,
-  CountQuery,
-  DataStore,
-  EventPipe,
-  IDataStore,
-  IdbContext,
-  Logger,
-  Parent,
-  Query,
+  Context, CountQuery, DataStore, EventPipe, IDataStore, IdbContext, Logger, Parent, Query,
   SingleItemQuery
 } from '@normalized-db/data-store';
 import { DenormalizerBuilder } from '@normalized-db/denormalizer';
@@ -35,7 +27,7 @@ export class DataStoreService implements IDataStore<Types> {
     this._context = this.buildContext();
     this._context.logger().enable();
 
-    this._dataStore = new DataStore(this._context, false);
+    this._dataStore = new DataStore(this._context);
   }
 
   public get eventPipe(): EventPipe<Types> {

@@ -7,7 +7,7 @@ Example projects for `@normalized-db`-modules.
 ## Notes
 
  - The `normalized-db`-project is under active development.
- - To ease versioning equal version numbers are used for all modules. A demo's version number indicates the used version of the `normalized-db`-modules.
+ - To ease versioning equal major and minor version numbers are used for all modules. A demo's version number indicates the used version of the `normalized-db`-modules.
  
 ## Demos
 
