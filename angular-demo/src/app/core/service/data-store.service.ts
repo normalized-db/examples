@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ISchema, Schema, ValidKey } from '@normalized-db/core';
+import { ISchema, NdbDocument, Schema, ValidKey } from '@normalized-db/core';
 import {
-  Context, CountQuery, DataStore, EventPipe, IDataStore, IdbContext, Logger, Parent, Query,
-  SingleItemQuery
+  ClearOptions, Context, CountOptions, CountQuery, CreateOptions, DataStore, EventPipe, FindByKeyOptions,
+  FindOptions, IDataStore, IdbContext, Logger, PutOptions, Query, RemoveOptions, SetOptions, SingleItemQuery,
+  UpdateOptions
 } from '@normalized-db/data-store';
 import { DenormalizerBuilder } from '@normalized-db/denormalizer';
 import { NormalizerBuilder } from '@normalized-db/normalizer';
@@ -38,36 +39,42 @@ export class DataStoreService implements IDataStore<Types> {
     return this._schema.getTypes();
   }
 
-  public count<T>(type: Types): CountQuery<T> {
-    return this._dataStore.count(type);
+  public count<T>(type: Types, options?: CountOptions): CountQuery<T> {
+    return this._dataStore.count(type, options);
   }
 
-  public find<Result>(type: Types): Query<Result> {
-    return this._dataStore.find<Result>(type);
+  public find<Result>(type: Types, options?: FindOptions): Query<Result> {
+    return this._dataStore.find<Result>(type, options);
   }
 
-  public findByKey<Result>(type: Types, key: ValidKey): SingleItemQuery<Result> {
-    return this._dataStore.findByKey<Result>(type, key);
+  public findByKey<Result>(type: Types, key: ValidKey, options?: FindByKeyOptions): SingleItemQuery<Result> {
+    return this._dataStore.findByKey<Result>(type, key, options);
   }
 
-  public create<Item>(type: Types, item: Item | Item[], parent?: Parent): Promise<boolean> {
-    return this._dataStore.create<Item>(type, item, parent);
+  public create<Item extends NdbDocument>(type: Types, item: Item | Item[], options?: CreateOptions): Promise<boolean> {
+    return this._dataStore.create<Item>(type, item, options);
   }
 
-  public update<Item>(type: Types, item: Item | Item[]): Promise<boolean> {
-    return this._dataStore.update<Item>(type, item);
+  public update<Item extends NdbDocument>(type: Types, item: Item | Item[], options?: UpdateOptions): Promise<boolean> {
+    return this._dataStore.update<Item>(type, item, options);
   }
 
-  public put<Item>(type: Types, item: Item | Item[], parent?: Parent): Promise<boolean> {
-    return this._dataStore.put<Item>(type, item, parent);
+  public set<Data extends object>(type: Types, item: Data | Data[], options?: SetOptions): Promise<boolean> {
+    return this._dataStore.set<Data>(type, item, options);
   }
 
-  public remove<Item>(type: Types, item: ValidKey | Item): Promise<boolean> {
-    return this._dataStore.remove<Item>(type, item);
+  public put<Item extends NdbDocument>(type: Types, item: Item | Item[], options?: PutOptions): Promise<boolean> {
+    return this._dataStore.put<Item>(type, item, options);
   }
 
-  public clear(type?: string | string[], includeLogs?: boolean): Promise<boolean> {
-    return this._dataStore.clear(type, includeLogs);
+  public remove<Item extends NdbDocument>(type: Types,
+                                          item: ValidKey | Item,
+                                          options?: RemoveOptions): Promise<boolean> {
+    return this._dataStore.remove<Item>(type, item, options);
+  }
+
+  public clear(type?: string | string[], options?: ClearOptions): Promise<boolean> {
+    return this._dataStore.clear(type, options);
   }
 
   public logger(): Logger<Types, Context<Types>> {
