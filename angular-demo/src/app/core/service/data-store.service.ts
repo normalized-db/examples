@@ -38,7 +38,7 @@ export class DataStoreService implements IDataStore<Types> {
     return this._schema.getTypes();
   }
 
-  public count(type: Types): CountQuery {
+  public count<T>(type: Types): CountQuery<T> {
     return this._dataStore.count(type);
   }
 

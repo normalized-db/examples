@@ -1,12 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  BaseEvent,
-  CreatedEvent,
-  ListResult,
-  MapFunc,
-  OnDataChanged,
-  Query,
-  ReducerFunc,
+  BaseEvent, CreatedEvent, ListResult, MapFunc, OnDataChanged, Query, ReducerFunc,
   RemovedEvent
 } from '@normalized-db/data-store';
 import { Article } from '../../core/entity/article';
@@ -39,12 +33,12 @@ export class ArticleIndexComponent implements OnInit, OnDestroy, OnDataChanged {
   public async ngOnInit() {
     this.toolbar.filters.push(this.filter);
     await this.reload();
-    this.dataStore.eventPipe.add(this).type('article').register();
+    this.dataStore.eventPipe.register(this).type('article').build();
   }
 
   public ngOnDestroy() {
     this.toolbar.filters.remove(this.filter);
-    this.dataStore.eventPipe.remove(this);
+    this.dataStore.eventPipe.unregister(this);
   }
 
   public ndbOnDataChanged(event: BaseEvent<Types, Article>) {
