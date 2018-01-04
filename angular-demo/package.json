@@ -1,6 +1,6 @@
 {
   "name": "normalized-db-angular-demo",
-  "version": "2.3.0",
+  "version": "2.3.X",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "4.2.6",
     "@angular/router": "4.2.6",
     "@normalized-db/core": "2.3.0",
-    "@normalized-db/data-store": "2.3.0",
+    "@normalized-db/data-store": "2.3.1",
     "@normalized-db/denormalizer": "2.3.0",
     "@normalized-db/normalizer": "2.3.1",
     "core-js": "2.4.1",

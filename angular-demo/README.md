@@ -3,7 +3,7 @@
 Demo app with Angular4 and IndexedDB.
 
  - **Author**: Sandro Schmid ([saseb.schmid@gmail.com](<mailto:saseb.schmid@gmail.com>))
- - **Version**: 2.3.0
+ - **Version**: 2.3.X
 
 ## Notes
 

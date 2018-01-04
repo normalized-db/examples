@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ISchema, NdbDocument, Schema, ValidKey } from '@normalized-db/core';
 import {
   ClearOptions, Context, CountOptions, CountQuery, CreateOptions, DataStore, EventPipe, FindByKeyOptions,
-  FindOptions, IDataStore, IdbContext, Logger, PutOptions, Query, RemoveOptions, SetOptions, SingleItemQuery,
+  FindOptions, IDataStore, IdbContextBuilder, Logger, PutOptions, Query, RemoveOptions, SetOptions, SingleItemQuery,
   UpdateOptions
 } from '@normalized-db/data-store';
 import { DenormalizerBuilder } from '@normalized-db/denormalizer';
@@ -24,10 +24,7 @@ export class DataStoreService implements IDataStore<Types> {
 
   constructor() {
     this._schema = new Schema(schemaConfig);
-
     this._context = this.buildContext();
-    this._context.logger().enable();
-
     this._dataStore = new DataStore(this._context);
   }
 
@@ -82,14 +79,20 @@ export class DataStoreService implements IDataStore<Types> {
   }
 
   private buildContext(): Context<Types> {
-    return new IdbContext<Types>(
-      this._schema,
-      new NormalizerBuilder()
-        .schema(this._schema)
-        .reverseReferences(true)
-        .uniqueKeyCallback(DataStoreService.newKey),
-      new DenormalizerBuilder().schema(this._schema),
-      { name: 'ndb-demo', version: 1 }
-    );
+    const normalizerBuilder = new NormalizerBuilder()
+      .schema(this._schema)
+      .reverseReferences(true)
+      .uniqueKeyCallback(DataStoreService.newKey);
+
+    const denormalizerBuilder = new DenormalizerBuilder().schema(this._schema);
+
+    return new IdbContextBuilder<Types>()
+      .dbName('ndb-demo')
+      .dbVersion(1)
+      .schema(this._schema)
+      .normalizerBuilder(normalizerBuilder)
+      .denormalizerBuilder(denormalizerBuilder)
+      .enableLogging(true)
+      .build();
   }
 }
