@@ -42,7 +42,7 @@ export class CommentModalComponent implements OnInit {
 
     const comment = new Comment(this.comment, this.user);
     const parent = new Parent('article', this.articleId, 'comments');
-    if (await this.dataStore.create<Comment>('comment', comment, parent)) {
+    if (await this.dataStore.create<Comment>('comment', comment, { parent: parent })) {
       this.utilities.showSnackBar('Successfully commented on article');
       this.dialogRef.close(comment);
     }
