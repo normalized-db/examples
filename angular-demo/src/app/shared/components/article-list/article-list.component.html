@@ -4,7 +4,9 @@
     <mat-card-subtitle>
       <app-user-link [user]="article.author"></app-user-link>
       {{article.createdDate|date}} |
-      <span *ngIf="article.comments; else noComments">{{article.comments.length}} comment(s)</span>
+      <span *ngIf="article.comments && article.comments.length > 0; else noComments">
+        {{article.comments.length}} comment(s)
+      </span>
       <ng-template #noComments>
         <span>No comments</span>
       </ng-template>
