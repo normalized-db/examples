@@ -56,8 +56,8 @@ export class DataStoreService implements IDataStore<Types> {
     return this._dataStore.update<Item>(type, item, options);
   }
 
-  public set<Data extends object>(type: Types, item: Data | Data[], options?: SetOptions): Promise<boolean> {
-    return this._dataStore.set<Data>(type, item, options);
+  public set<Data extends object>(type: Types, id: ValidKey, item: Data, options?: SetOptions): Promise<boolean> {
+    return this._dataStore.set<Data>(type, id, item, options);
   }
 
   public put<Item extends NdbDocument>(type: Types, item: Item | Item[], options?: PutOptions): Promise<boolean> {

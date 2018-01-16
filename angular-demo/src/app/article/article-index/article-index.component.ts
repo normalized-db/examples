@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  BaseEvent, CreatedEvent, ListResult, MapFunc, OnDataChanged, Query, ReducerFunc,
+  BaseEvent, CreatedEvent, ListResult, MapFunc, OnDataChanged, ORDER_DESC, OrderBy, Query, ReducerFunc,
   RemovedEvent
 } from '@normalized-db/data-store';
 import { Article } from '../../core/entity/article';
@@ -14,6 +14,8 @@ import { ToolbarFilter } from '../../core/toolbar/shared/model/toolbar-filter';
   styleUrls: ['./article-index.component.scss']
 })
 export class ArticleIndexComponent implements OnInit, OnDestroy, OnDataChanged {
+
+  private static readonly ORDER_BY: OrderBy = { createdDate: ORDER_DESC };
 
   public articles: ListResult<Article>;
 
@@ -46,7 +48,7 @@ export class ArticleIndexComponent implements OnInit, OnDestroy, OnDataChanged {
     if (event.dataStoreType === 'article') {
       let changed = false;
       if (event instanceof CreatedEvent) {
-        this.articles.push(event.item);
+        this.articles.unshift(event.item);
         changed = true;
       } else if (event instanceof RemovedEvent) {
         this.articles.remove(event.item);
@@ -60,7 +62,8 @@ export class ArticleIndexComponent implements OnInit, OnDestroy, OnDataChanged {
   }
 
   public async reload() {
-    const articlesQuery = this.dataStore.find<Article>('article');
+    const articlesQuery = this.dataStore.find<Article>('article')
+      .orderBy(ArticleIndexComponent.ORDER_BY);
     this.articles = await articlesQuery.result();
     this.reloadFilter();
 

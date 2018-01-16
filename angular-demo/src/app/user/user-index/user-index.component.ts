@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ListResult } from '@normalized-db/data-store';
+import { ListResult, ORDER_ASC, OrderBy } from '@normalized-db/data-store';
 import { User } from '../../core/entity/user';
 import { DataStoreService } from '../../core/service/data-store.service';
 
@@ -9,6 +9,8 @@ import { DataStoreService } from '../../core/service/data-store.service';
   styleUrls: ['./user-index.component.scss']
 })
 export class UserIndexComponent implements OnInit {
+
+  private static readonly ORDER_BY: OrderBy = { lastName: ORDER_ASC, firstName: ORDER_ASC };
 
   public users: ListResult<User>;
 
@@ -20,7 +22,9 @@ export class UserIndexComponent implements OnInit {
   }
 
   public async reload() {
-    this.users = await this.dataStore.find<User>('user').result();
+    this.users = await this.dataStore.find<User>('user')
+      .orderBy(UserIndexComponent.ORDER_BY)
+      .result();
     console.log('#user-list: get all', this.users);
   }
 
