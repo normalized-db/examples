@@ -5,10 +5,13 @@ import { Image } from './image';
 import { User } from './user';
 
 export class Article extends IdEntity implements NdbDocument {
-  title: string;
-  text: string;
-  createdDate: Date;
-  author: User;
-  comments?: Comment[];
-  image?: Image;
+
+  public title: string;
+  public text: string;
+  public createdDate: Date;
+  public author: User;
+  public comments?: Comment[];
+  public image?: Image;
+
+  public readonly _refs?: {};
 }

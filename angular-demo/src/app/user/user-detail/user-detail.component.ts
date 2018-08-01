@@ -56,10 +56,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     this.user = await this.dataStore.findByKey<User>('user', this.userName).orDefault();
     if (this.user) {
-      [this.articles, this.comments] = await Promise.all([
+      [this.articles, this.comments] = (await Promise.all([
         this.dataStore.find<Article>('article').reverse(this.user).result(),
         this.dataStore.find<Article>('comment').reverse(this.user).result()
-      ]);
+      ])) as any[];
       console.log('#user-detail: received', this.user, this.articles, this.comments);
     } else {
       this.articles = null;
