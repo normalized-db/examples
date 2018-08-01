@@ -3,12 +3,11 @@
 Demo app with Angular4 and IndexedDB.
 
  - **Author**: Sandro Schmid ([saseb.schmid@gmail.com](<mailto:saseb.schmid@gmail.com>))
- - **Version**: 2.4.X
+ - **Version**: 2.5.0-beta.1
+ 
+## Versioning
 
-## Notes
-
- - The `normalized-db`-project is under active development.
- - To ease versioning equal major and minor version numbers are used for all modules. A demo's version number indicates the used version of the `normalized-db`-modules.
+To ease versioning equal major and minor version numbers are used for all modules. A demo's version number indicates the used version of the `normalized-db`-modules.
  
 ## Description
  
