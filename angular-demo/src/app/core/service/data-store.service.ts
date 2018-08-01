@@ -1,8 +1,23 @@
 import { Injectable } from '@angular/core';
 import { ISchema, NdbDocument, Schema, ValidKey } from '@normalized-db/core';
 import {
-  ClearOptions, Context, CountOptions, CountQuery, CreateOptions, DataStore, EventPipe, FindByKeyOptions,
-  FindOptions, IDataStore, IdbContextBuilder, Logger, PutOptions, Query, RemoveOptions, SetOptions, SingleItemQuery,
+  ClearOptions,
+  Context,
+  CountOptions,
+  CountQuery,
+  CreateOptions,
+  DataStore,
+  EventPipe,
+  FindByKeyOptions,
+  FindOptions,
+  IDataStore,
+  IdbContextBuilder,
+  Logger,
+  PutOptions,
+  Query,
+  RemoveOptions,
+  SetOptions,
+  SingleItemQuery,
   UpdateOptions
 } from '@normalized-db/data-store';
 import { DenormalizerBuilder } from '@normalized-db/denormalizer';
@@ -84,7 +99,17 @@ export class DataStoreService implements IDataStore<Types> {
       .reverseReferences(true)
       .uniqueKeyCallback(DataStoreService.newKey);
 
-    const denormalizerBuilder = new DenormalizerBuilder().schema(this._schema);
+    const denormalizerBuilder = new DenormalizerBuilder()
+      .schema(this._schema);
+
+    // const logConfig = new LogConfigBuilder()
+    //   .setDefault(new StoreLogBuilder(LogMode.Simple).addKey(['1', '2', 'mmuster']).build())
+    //   .setType('article', new StoreLogBuilder()
+    //     .setMode(LogMode.Full)
+    //     .setEventSelection(['created', 'cleared'])
+    //     .build())
+    //   .setType('comment', new StoreLogBuilder(LogMode.Disabled).build())
+    //   .build();
 
     return new IdbContextBuilder<Types>()
       .dbName('ndb-demo')
@@ -92,7 +117,7 @@ export class DataStoreService implements IDataStore<Types> {
       .schema(this._schema)
       .normalizerBuilder(normalizerBuilder)
       .denormalizerBuilder(denormalizerBuilder)
-      .enableLogging(true)
+      .enableLogging(/*logConfig*/)
       .build();
   }
 }
