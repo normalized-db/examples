@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ISchema, NdbDocument, Schema, ValidKey } from '@normalized-db/core';
+import { ISchema, LogMode, NdbDocument, Schema, StoreLogBuilder, ValidKey } from '@normalized-db/core';
 import {
   ClearOptions,
   Context,
@@ -12,6 +12,7 @@ import {
   FindOptions,
   IDataStore,
   IdbContextBuilder,
+  LogConfigBuilder,
   Logger,
   PutOptions,
   Query,
@@ -102,14 +103,14 @@ export class DataStoreService implements IDataStore<Types> {
     const denormalizerBuilder = new DenormalizerBuilder()
       .schema(this._schema);
 
-    // const logConfig = new LogConfigBuilder()
-    //   .setDefault(new StoreLogBuilder(LogMode.Simple).addKey(['1', '2', 'mmuster']).build())
-    //   .setType('article', new StoreLogBuilder()
-    //     .setMode(LogMode.Full)
-    //     .setEventSelection(['created', 'cleared'])
-    //     .build())
-    //   .setType('comment', new StoreLogBuilder(LogMode.Disabled).build())
-    //   .build();
+    const logConfig = new LogConfigBuilder()
+      .setDefault(new StoreLogBuilder(LogMode.Disabled).build())
+      .setType('article', new StoreLogBuilder()
+        .setMode(LogMode.Full)
+        // .setEventSelection([ 'created', 'cleared' ])
+        .build())
+      .setType('comment', new StoreLogBuilder(LogMode.Simple).build())
+      .build();
 
     return new IdbContextBuilder<Types>()
       .dbName('ndb-demo')
@@ -117,7 +118,7 @@ export class DataStoreService implements IDataStore<Types> {
       .schema(this._schema)
       .normalizerBuilder(normalizerBuilder)
       .denormalizerBuilder(denormalizerBuilder)
-      .enableLogging(/*logConfig*/)
+      .enableLogging(logConfig)
       .build();
   }
 }
