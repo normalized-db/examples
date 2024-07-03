@@ -1,5 +1,8 @@
 # normalized-db Examples
 
+> [!WARNING]  
+> This project has been deprecated in favor of [@normalized-db/ndb](https://github.com/normalized-db/ndb).
+
 Example projects for `@normalized-db`-modules.
 
 **Author**: Sandro Schmid ([saseb.schmid@gmail.com](<mailto:saseb.schmid@gmail.com>))
